@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import {Nav} from "@/components/nav/Nav";
+import StateProvider from "@/redux/StateProvider";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <StateProvider>
+      <body className={inter.className}>
+          <div className="w-screen h-screen grid grid-cols-12 p-2 gap-2">
+              <section className="col-span-2">
+                <Nav />
+              </section>
+              <main className="col-span-10 bg-neutral-800 rounded-md grid grid-rows-6 overflow-auto p-2">
+                {children}
+              </main>
+          </div>
+      </body>
+    </StateProvider>
     </html>
   )
 }
